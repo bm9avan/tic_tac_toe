@@ -1,0 +1,41 @@
+/* Styling for Player component */
+.player,
+.player-edit {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px; /* Add margin to separate players */
+  display: inline-block; /* Display players in a single row */
+}
+
+.label {
+    padding-left: 25px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 16px;
+  padding-right: 10px;
+}
+
+.edit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 5px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
