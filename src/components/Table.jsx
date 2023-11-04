@@ -25,9 +25,9 @@ const Table = ({ p1, p2 }) => {
         message.current = winner(temp);
         return temp;
       });
-      if (message) {
-        console.log(message);
+      if (message.current) {
         setResult(message.current);
+        message.current = null;
       }
       setturn((pt) => !pt);
     } else {

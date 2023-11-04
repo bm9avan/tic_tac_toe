@@ -1,5 +1,4 @@
 export default function winner(arr) {
-  console.log(arr);
   for (let i = 0; i < arr.length; i++) {
     let e1 = arr[i][0];
     let e2 = arr[0][i];
@@ -23,15 +22,11 @@ export default function winner(arr) {
     }
   }
 
+  let no = true;
   for (let i = 0; i < arr.length; i++) {
-    let j;
-    for (j = 0; j < arr[i].length; j++) {
-      if (arr[i][j] === 0) break;
-      if (j === 2 && i === 2) {
-        return "no Winner no losser";
-      }
+    for (let j = 0; j < arr[i].length; j++) {
+      if (arr[i][j] === 0) no = false;
     }
-    console.log(i, j, arr.length);
-    if (j !== 2 || arr[i][j] === 0) break;
   }
+  if (no) return "no winner no losser";
 }
