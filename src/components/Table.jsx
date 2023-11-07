@@ -3,7 +3,7 @@ import Clicker from "./Clicker";
 import winner from "../functions/winner";
 import Result from "./Result";
 import Log from "./Log";
-import "./Table.css"
+import "./Table.css";
 
 const Table = ({ p1, p2 }) => {
   const message = useRef(null);
@@ -81,7 +81,21 @@ const Table = ({ p1, p2 }) => {
           ))}
         </tbody>
       </table>
-      {log.length ? <button onClick={diplayGame} className="displayGame">DisplayGame</button>:""}
+      {log.length ? (
+        <div className="gameOut">
+          <button onClick={diplayGame} className="displayGame">
+            DisplayGame
+          </button>
+          <button
+            onClick={() => window.location.reload()}
+            className="displayGame"
+          >
+            NewGame
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
       <Log
         log={log}
         p1={p1}
