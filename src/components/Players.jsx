@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Players.css";
 
 const Player = ({ player, handelName, name }) => {
   const [edit, setEdit] = useState(false);
-
+  const nameRef = useRef(name);
   return (
     <div className={edit ? "player-edit" : "player"}>
       <label htmlFor="name" className="label">
@@ -11,18 +11,24 @@ const Player = ({ player, handelName, name }) => {
       </label>
       {edit ? (
         <input
+          ref={nameRef}
           type="text"
           id="name"
-          value={name}
-          onChange={(e) => {
-            handelName(player, e.target.value);
-          }}
+          defaultValue={name}
           className="input"
         />
       ) : (
         <span className="name">{name}</span>
       )}
-      <button onClick={() => setEdit((pe) => !pe)} className="edit-button">
+      <button
+        onClick={() => {
+          setEdit((pe) => !pe);
+          if (edit) {
+            handelName(player, nameRef.current.value);
+          }
+        }}
+        className="edit-button"
+      >
         {edit ? "Save" : "Edit"}
       </button>
     </div>

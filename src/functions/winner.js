@@ -28,5 +28,5 @@ export default function winner(arr) {
       if (arr[i][j] === 0) no = false;
     }
   }
-  if (no) return "no winner no losser";
+  if (no) return "No winner no losser";
 }

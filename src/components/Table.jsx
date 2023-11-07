@@ -2,38 +2,68 @@ import React, { useRef, useState } from "react";
 import Clicker from "./Clicker";
 import winner from "../functions/winner";
 import Result from "./Result";
+import Log from "./Log";
+import "./Table.css"
+
 const Table = ({ p1, p2 }) => {
   const message = useRef(null);
-  const [arr, setArr] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ]);
-  const [turn, setturn] = useState(true);
   const [result, setResult] = useState(null);
+  const [log, setLog] = useState([]);
+  const [history, setHistory] = useState(null);
+  const arr = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ];
+  const dis = (history && history.arr) || log;
+  for (let i = 0; i < dis.length; i++) {
+    const [r, c] = dis[i];
+    arr[r][c] = i % 2 === 0 ? 1 : 2;
+  }
+  const turn = dis.length % 2 === 0;
 
   async function handelGame(i, j) {
-    let temp;
     if (arr[i][j] === 0) {
-      await setArr((pa) => {
-        temp = structuredClone(pa);
-        if (turn) {
-          temp[i][j] = 1;
-        } else {
-          temp[i][j] = 2;
-        }
-        message.current = winner(temp);
-        return temp;
-      });
+      if (!history) {
+        await setLog((pa) => {
+          arr[i][j] = log.length % 2 === 0 ? 1 : 2;
+          message.current = winner(arr);
+          return [...pa, [i, j]];
+        });
+      } else {
+        await setLog((pa) => {
+          const temp = history.arr;
+          arr[i][j] = temp.length % 2 === 0 ? 1 : 2;
+          message.current = winner(arr);
+          return [...temp, [i, j]];
+        });
+        setHistory(null);
+      }
       if (message.current) {
         setResult(message.current);
         message.current = null;
       }
-      setturn((pt) => !pt);
     } else {
-      alert("please choose correct box");
+      alert("Please choose correct box");
     }
   }
+
+  function handelTravel(i) {
+    const temp = [];
+    for (let k = 0; k <= i; k++) {
+      temp[k] = [...log[k]];
+    }
+    setHistory({ arr: temp, i });
+  }
+
+  function diplayGame() {
+    for (let k = 0; k < log.length; k++) {
+      setTimeout(() => {
+        handelTravel(k);
+      }, 1000 * k);
+    }
+  }
+
   return (
     <>
       {result && <Result message={result} ok={() => setResult(null)} />}
@@ -51,6 +81,14 @@ const Table = ({ p1, p2 }) => {
           ))}
         </tbody>
       </table>
+      {log.length ? <button onClick={diplayGame} className="displayGame">DisplayGame</button>:""}
+      <Log
+        log={log}
+        p1={p1}
+        p2={p2}
+        travel={handelTravel}
+        current={history && history.i}
+      />
     </>
   );
 };
