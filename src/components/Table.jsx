@@ -42,9 +42,9 @@ const Table = ({ p1, p2 }) => {
       if (message.current) {
         let res;
         if(message.current[0]==="X"){
-          res=p1+message.current;
+          res=p1+" "+message.current;
         } else if(message.current[1]==="O"){
-          res=p1+message.current;
+          res=p1+" "+message.current;
         } else{
           res=message.current;
         }
