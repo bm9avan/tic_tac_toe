@@ -40,7 +40,15 @@ const Table = ({ p1, p2 }) => {
         setHistory(null);
       }
       if (message.current) {
-        setResult(message.current);
+        let res;
+        if(message.current[0]==="X"){
+          res=p1+message.current;
+        } else if(message.current[1]==="O"){
+          res=p1+message.current;
+        } else{
+          res=message.current;
+        }
+        setResult(res);
         message.current = null;
       }
     } else {
