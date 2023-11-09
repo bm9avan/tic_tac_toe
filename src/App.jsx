@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Players from "./components/Players";
-import Table from "./components/table";
+import Table from "./components/Table";
 
 function App() {
   const [players, setPlayers] = useState({ p1: "Player 1", p2: "Player 2" });
